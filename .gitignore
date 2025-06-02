@@ -1,0 +1,183 @@
+# =============================================================================
+# 미디어 파일 제외용 .gitignore
+# =============================================================================
+
+# 이미지 파일들
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.tif
+*.webp
+*.svg
+*.ico
+*.heic
+*.heif
+*.raw
+*.cr2
+*.nef
+*.arw
+*.dng
+
+# 비디오 파일들
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.mkv
+*.m4v
+*.3gp
+*.3g2
+*.mts
+*.m2ts
+*.ts
+*.vob
+*.ogv
+*.dv
+*.asf
+*.rm
+*.rmvb
+*.divx
+*.xvid
+
+# 오디오 파일들
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.wma
+*.m4a
+*.opus
+*.aiff
+*.au
+*.ra
+*.amr
+*.ac3
+*.dts
+
+# 문서/오피스 파일들 (용량이 큰 경우 제외하고 싶다면)
+# *.pdf
+# *.doc
+# *.docx
+# *.ppt
+# *.pptx
+# *.xls
+# *.xlsx
+
+# 압축 파일들
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.bz2
+*.xz
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tgz
+
+# 실행 파일들
+*.exe
+*.msi
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.app
+
+# 데이터 파일들 (대용량인 경우)
+*.db
+*.sqlite
+*.sqlite3
+# *.json  # JSON은 보통 커밋하므로 주석처리
+# *.csv   # CSV도 프로젝트에 따라 다름
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
+
+# 모델 파일들 (AI/ML 프로젝트용)
+*.pth
+*.pt
+*.h5
+*.pb
+*.onnx
+*.tflite
+*.caffemodel
+*.prototxt
+*.weights
+*.ckpt
+*.safetensors
+
+# 임시 파일들
+*~
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.backup
+
+# 특정 디렉토리 전체 제외
+# 미디어 파일이 보관되는 폴더들
+media/
+images/
+videos/
+audio/
+assets/images/
+assets/videos/
+assets/audio/
+static/media/
+public/images/
+public/videos/
+uploads/
+downloads/
+data/raw/
+data/processed/
+dataset/
+datasets/
+
+# 로그 파일들
+*.log
+logs/
+
+# 캐시 파일들
+*.cache
+cache/
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE/에디터 파일들
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS 생성 파일들
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 예외적으로 커밋하고 싶은 파일들 (! 사용)
+# 예시: 로고나 아이콘 같은 필수 이미지
+# !logo.png
+# !favicon.ico
+# !assets/icons/*.png
