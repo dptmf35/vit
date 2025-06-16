@@ -26,8 +26,12 @@ def main():
                        help='Input image topic (default: /stereo_image_color)')
     
     # Model parameters
-    parser.add_argument('--model_path', type=str, default='yoloe-11s-seg.pt',
-                       help='YOLOE model path (default: yoloe-11s-seg.pt)')
+    parser.add_argument('--model_path', type=str, default='yoloe-11m-seg.pt',
+                       help='YOLOE model path (default: yoloe-11m-seg.pt)')
+    
+    # Test mode
+    parser.add_argument('--test_mode', action='store_true',
+                       help='Enable test mode (detection only, no data collection)')
     
     args = parser.parse_args()
     
@@ -40,16 +44,31 @@ def main():
     os.environ['COLLECTOR_DATASET_PATH'] = args.dataset_path
     os.environ['COLLECTOR_IMAGE_TOPIC'] = args.image_topic
     os.environ['COLLECTOR_MODEL_PATH'] = args.model_path
+    os.environ['COLLECTOR_TEST_MODE'] = str(args.test_mode)
     
-    print("=== YOLO Dataset Collector Configuration ===")
+    if args.test_mode:
+        print("=== YOLO Dataset Collector - TEST MODE ===")
+        print("🔍 Detection Only Mode (No Data Collection)")
+    else:
+        print("=== YOLO Dataset Collector Configuration ===")
+    
     print(f"Confidence Threshold: {args.conf_threshold}")
     print(f"IOU Threshold: {args.iou_threshold}")
     print(f"Collection Interval: {args.collection_interval}s")
-    print(f"Min Detections: {args.min_detections}")
-    print(f"Max Detections: {args.max_detections}")
-    print(f"Dataset Path: {args.dataset_path}")
+    
+    if not args.test_mode:
+        print(f"Min Detections: {args.min_detections}")
+        print(f"Max Detections: {args.max_detections}")
+        print(f"Dataset Path: {args.dataset_path}")
+    
     print(f"Image Topic: {args.image_topic}")
     print(f"Model Path: {args.model_path}")
+    
+    if args.test_mode:
+        print("Mode: TEST MODE (Publishing results only)")
+    else:
+        print("Mode: DATA COLLECTION")
+    
     print("=" * 45)
     
     # Import and run the collector
