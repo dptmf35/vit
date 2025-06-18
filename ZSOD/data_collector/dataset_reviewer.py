@@ -358,7 +358,8 @@ class DatasetReviewer:
         """Open a text editor for label file"""
         editor_window = tk.Toplevel(self.root)
         editor_window.title(f"Edit Labels - {label_path.name}")
-        editor_window.geometry("600x400")
+        editor_window.geometry("700x500")
+        editor_window.minsize(600, 400)
         
         # Read current content
         content = ""
@@ -378,9 +379,10 @@ class DatasetReviewer:
         h_scroll = ttk.Scrollbar(text_frame, orient=tk.HORIZONTAL, command=text_widget.xview)
         text_widget.configure(yscrollcommand=v_scroll.set, xscrollcommand=h_scroll.set)
         
-        text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        # Pack scrollbars first, then text widget
         v_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         h_scroll.pack(side=tk.BOTTOM, fill=tk.X)
+        text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         
         # Info label
         info_text = f"Format: class_id center_x center_y width height (normalized 0-1)\n"
@@ -391,7 +393,7 @@ class DatasetReviewer:
         
         # Buttons
         button_frame = ttk.Frame(editor_window)
-        button_frame.pack(fill=tk.X, padx=10, pady=(0, 10))
+        button_frame.pack(fill=tk.X, padx=10, pady=10)
         
         def save_changes():
             new_content = text_widget.get(1.0, tk.END).strip()
@@ -448,11 +450,24 @@ class DatasetReviewer:
         def cancel_changes():
             editor_window.destroy()
         
-        ttk.Button(button_frame, text="💾 Save", command=save_changes).pack(side=tk.LEFT, padx=2)
-        ttk.Button(button_frame, text="❌ Cancel", command=cancel_changes).pack(side=tk.LEFT, padx=2)
+        save_btn = ttk.Button(button_frame, text="💾 Save", command=save_changes)
+        save_btn.pack(side=tk.LEFT, padx=5, ipadx=10, ipady=5)
+        
+        cancel_btn = ttk.Button(button_frame, text="❌ Cancel", command=cancel_changes)
+        cancel_btn.pack(side=tk.LEFT, padx=5, ipadx=10, ipady=5)
+        
+        # Add separator and help text
+        ttk.Separator(button_frame, orient=tk.VERTICAL).pack(side=tk.LEFT, padx=10, fill=tk.Y)
+        help_label = ttk.Label(button_frame, text="Tip: 💾 Save 버튼을 반드시 눌러야 저장됩니다!", 
+                              foreground="blue", font=("Arial", 10, "bold"))
+        help_label.pack(side=tk.LEFT, padx=10)
         
         # Focus on text widget
         text_widget.focus_set()
+        
+        # Keyboard shortcuts
+        editor_window.bind('<Control-s>', lambda e: save_changes())
+        editor_window.bind('<Escape>', lambda e: cancel_changes())
     
     def edit_annotation(self, event):
         """Edit selected annotation"""
