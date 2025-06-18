@@ -141,7 +141,8 @@ class DatasetReviewer:
         
         ttk.Button(action_frame, text="🗑️ Delete", command=self.delete_current, 
                   style="Danger.TButton").pack(side=tk.LEFT, padx=2)
-        ttk.Button(action_frame, text="✏️ Edit Labels", command=self.edit_labels).pack(side=tk.LEFT, padx=2)
+        ttk.Button(action_frame, text="✏️ Edit Text", command=self.edit_labels).pack(side=tk.LEFT, padx=2)
+        ttk.Button(action_frame, text="🎯 Visual Edit", command=self.visual_edit_labels).pack(side=tk.LEFT, padx=2)
         ttk.Button(action_frame, text="🔄 Refresh", command=self.refresh_current).pack(side=tk.LEFT, padx=2)
         ttk.Button(action_frame, text="📊 Statistics", command=self.show_statistics).pack(side=tk.LEFT, padx=2)
         
@@ -469,6 +470,46 @@ class DatasetReviewer:
         editor_window.bind('<Control-s>', lambda e: save_changes())
         editor_window.bind('<Escape>', lambda e: cancel_changes())
     
+    def visual_edit_labels(self):
+        """Open visual annotation editor"""
+        if not self.image_files or self.current_index >= len(self.image_files):
+            return
+        
+        image_path = Path(self.image_files[self.current_index])
+        image_name = image_path.stem
+        label_path = self.labels_dir / f"{image_name}.txt"
+        
+        try:
+            # Import and run interactive editor
+            from interactive_annotation_editor import InteractiveAnnotationEditor
+            
+            print(f"Opening visual editor for: {image_path.name}")
+            
+            # Hide main window temporarily
+            self.root.withdraw()
+            
+            # Run interactive editor
+            editor = InteractiveAnnotationEditor(str(image_path), str(label_path), self.class_names)
+            editor.run()
+            
+            # Show main window again
+            self.root.deiconify()
+            
+            # Refresh the display
+            self.refresh_current()
+            
+            # Update edited count
+            self.edited_count += 1
+            
+        except ImportError:
+            messagebox.showerror("Import Error", 
+                               "Cannot import interactive_annotation_editor.py\n"
+                               "Make sure the file is in the same directory.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to open visual editor:\n{str(e)}")
+            # Show main window again in case of error
+            self.root.deiconify()
+    
     def edit_annotation(self, event):
         """Edit selected annotation"""
         selection = self.annotations_listbox.curselection()
@@ -528,6 +569,8 @@ class DatasetReviewer:
             self.delete_current()
         elif key == 'e':
             self.edit_labels()
+        elif key == 'v':
+            self.visual_edit_labels()
         elif key == 'r':
             self.refresh_current()
         elif key == 'home':
@@ -546,7 +589,7 @@ class DatasetReviewer:
         print("=== YOLO Dataset Reviewer ===")
         print("Controls:")
         print("  Navigation: ← → A D Home End")
-        print("  Actions: Delete=Del, Edit=E, Refresh=R")
+        print("  Actions: Delete=Del, Text Edit=E, Visual Edit=V, Refresh=R")
         print("  Exit: Esc")
         print("=" * 30)
         

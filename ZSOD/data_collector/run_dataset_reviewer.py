@@ -6,8 +6,8 @@ from pathlib import Path
 
 def main():
     parser = argparse.ArgumentParser(description='YOLO Dataset Reviewer - Launcher Script')
-    parser.add_argument('--dataset-dir', type=str, default='../yolo_dataset', 
-                       help='Dataset directory path (default: ../yolo_dataset)')
+        parser.add_argument('--dataset-dir', type=str, default='~/yolo_dataset',
+                       help='Dataset directory path (default: ~/yolo_dataset)')
     parser.add_argument('--start-index', type=int, default=0, 
                        help='Starting image index (default: 0)')
     

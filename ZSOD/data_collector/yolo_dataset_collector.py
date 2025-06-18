@@ -25,7 +25,7 @@ class YOLODatasetCollector(Node):
         self.model = YOLOE("yoloe-11m-seg.pt")
         
         # Set text prompt to detect objects (sorted alphabetically)
-        self.class_names = ["bed", "cabinet", "carpet", "chair", "closet", "curtain", "dish", "door", "fridge",
+        self.class_names = ["bed", "cabinet", "carpet", "chair", "closet", "curtain", "desk", "door", "fridge",
                            "gas stove", "hanger","lamp", "microwave", "nightstand", "plant", "shelf", "sofa", "table", 
                            "tv", "window", "vanity"]
         self.model.set_classes(self.class_names, self.model.get_text_pe(self.class_names))
