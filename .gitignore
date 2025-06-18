@@ -103,6 +103,7 @@
 *.pickle
 *.npy
 *.npz
+*.txt
 
 # 모델 파일들 (AI/ML 프로젝트용)
 *.pth
