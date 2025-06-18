@@ -369,8 +369,8 @@ def main():
         return
     
     # Default class names
-    class_names = ["bed", "cabinet", "carpet", "chair", "closet", "curtain", "desk", "door", "fridge",
-                   "gas stove", "hanger", "lamp", "microwave", "nightstand", "plant", "shelf", "sofa", 
+    class_names = ["bed", "cabinet", "carpet", "chair", "closet", "countertop", "curtain", "desk", "door", "fridge",
+                   "gas stove", "hanger", "kitchen cart", "lamp", "nightstand", "plant", "shelf", "sofa", 
                    "table", "tv", "window", "vanity"]
     
     try:

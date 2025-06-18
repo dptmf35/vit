@@ -12,8 +12,9 @@ import numpy as np
 
 class YOLOTrainer:
     def __init__(self, dataset_path, output_dir="training_output"):
-        self.dataset_path = Path(dataset_path)
-        self.output_dir = Path(output_dir)
+        # Expand user path (~) properly
+        self.dataset_path = Path(dataset_path).expanduser()
+        self.output_dir = Path(output_dir).expanduser()
         self.output_dir.mkdir(exist_ok=True)
         
         # Check dataset structure

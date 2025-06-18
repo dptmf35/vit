@@ -53,8 +53,8 @@ class DatasetReviewer:
         
         if not class_names:
             # Default class names
-            class_names = ["bed", "cabinet", "carpet", "chair", "closet", "curtain", "dish", "door", "fridge",
-                          "gas stove", "hanger", "lamp", "microwave", "nightstand", "plant", "shelf", "sofa", 
+            class_names = ["bed", "cabinet", "carpet", "chair", "closet", "countertop", "curtain", "desk", "door", "fridge",
+                          "gas stove", "hanger", "kitchen cart", "lamp", "nightstand", "plant", "shelf", "sofa", 
                           "table", "tv", "window", "vanity"]
         
         print(f"Loaded {len(class_names)} classes: {class_names}")

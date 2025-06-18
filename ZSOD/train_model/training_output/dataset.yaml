@@ -1,0 +1,26 @@
+names:
+- bed
+- cabinet
+- carpet
+- chair
+- closet
+- countertop
+- curtain
+- desk
+- door
+- fridge
+- gas stove
+- hanger
+- kitchen cart
+- lamp
+- nightstand
+- plant
+- shelf
+- sofa
+- table
+- tv
+- window
+- vanity
+nc: 22
+train: /home/yeseul/Desktop/mygitrepos/vit/ZSOD/train_model/training_output/train/images
+val: /home/yeseul/Desktop/mygitrepos/vit/ZSOD/train_model/training_output/val/images
