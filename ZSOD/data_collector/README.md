@@ -8,7 +8,7 @@ This toolkit is ideal for robotics applications where new objects need to be rec
 
 ---
 
-## 核心功能 (Core Features)
+## Core Features
 
 -   **📝 Text-Prompt-Based Data Collection**: Automatically collect and label image data by providing a list of target object classes as text prompts.
 -   **🎨 Interactive Visual Prompting**: "Show" the model what to detect by drawing bounding boxes on a live video stream. The system then tracks and detects these objects in subsequent frames.
