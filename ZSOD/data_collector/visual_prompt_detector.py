@@ -37,8 +37,8 @@ class InteractiveFurnitureDetector(Node):
         
         # 침실 가구 클래스 정의
         self.furniture_classes = [
-            "bed", "lamp", "window", "curtain", 
-            "nightstand", "closet", "hanger"
+                    "bed", "lamp", "mirror", "piano",
+        "sidetable", "closet", "shelf"
         ]
         
         # YOLOE 모델 초기화

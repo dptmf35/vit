@@ -369,9 +369,9 @@ def main():
         return
     
     # Default class names
-    class_names = ["air purifier", "bed", "cabinet", "carpet", "chair", "closet", "countertop", "curtain", "desk", "door", "fridge",
-                   "gas stove", "hanger", "kitchen cart", "lamp", "nightstand", "plant", "shelf", "sofa", 
-                   "table", "tv", "window", "vanity"]
+    class_names = ["air purifier", "bed", "cabinet", "carpet", "chair", "closet", "countertop", "desk", "dinningtable", "door", "fridge",
+               "lamp", "mirror", "piano", "plant", "shelf", "sidetable", "sofa",
+               "table", "tv", "tv stand", "vanity"]
     
     try:
         editor = InteractiveAnnotationEditor(sys.argv[1], sys.argv[2], class_names)

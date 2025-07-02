@@ -73,10 +73,15 @@ def main():
     
     # Import and run the collector
     try:
+        # Add current directory to Python path
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, current_dir)
+        
         from yolo_dataset_collector import main as collector_main
         collector_main()
-    except ImportError:
-        print("Error: Cannot import yolo_dataset_collector.py")
+    except ImportError as e:
+        print(f"Error: Cannot import yolo_dataset_collector.py")
+        print(f"Import error: {e}")
         print("Make sure the file is in the same directory.")
         sys.exit(1)
 

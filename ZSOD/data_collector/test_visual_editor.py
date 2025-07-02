@@ -17,6 +17,7 @@ def main():
     dataset_path = Path("~/yolo_dataset").expanduser()
     images_dir = dataset_path / "images"
     
+    
     if not images_dir.exists():
         print("❌ No dataset directory found")
         print(f"Expected: {images_dir}")
@@ -85,9 +86,9 @@ def main():
         from interactive_annotation_editor import InteractiveAnnotationEditor
         
         # Default class names (same as in collector)
-            class_names = ["bed", "cabinet", "carpet", "chair", "closet", "countertop", "curtain", "desk", "door", "fridge",
-                   "gas stove", "hanger", "lamp", "microwave", "nightstand", "plant", "shelf", "sofa", 
-                   "table", "tv", "window", "vanity"]
+        class_names = ["air purifier", "bed", "cabinet", "carpet", "chair", "closet", "countertop", "desk", "dinningtable", "door", "fridge",
+                       "lamp", "mirror", "piano", "plant", "shelf", "sidetable", "sofa",
+                       "table", "tv", "tv stand", "vanity"]
         
         print("🎯 Starting Visual Annotation Editor...")
         print("Use mouse to draw bounding boxes, right-click to edit/delete")

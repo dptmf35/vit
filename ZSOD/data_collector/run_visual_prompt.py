@@ -54,10 +54,15 @@ def main():
     
     # Import and run the detector
     try:
+        # Add current directory to Python path
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, current_dir)
+        
         from visual_prompt_detector import main as detector_main
         detector_main()
-    except ImportError:
-        print("Error: Cannot import visual_prompt_detector.py")
+    except ImportError as e:
+        print(f"Error: Cannot import visual_prompt_detector.py")
+        print(f"Import error: {e}")
         print("Make sure the file is in the same directory.")
         sys.exit(1)
 
