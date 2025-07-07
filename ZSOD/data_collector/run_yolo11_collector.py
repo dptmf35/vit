@@ -26,8 +26,8 @@ def main():
                        help='Input image topic (default: /stereo_image_color)')
     
     # Model parameters
-    parser.add_argument('--model_path', type=str, default='train_model/training_output/train/weights/best.pt',
-                       help='YOLO11 trained model path (default: train_model/training_output/train/weights/best.pt)')
+    parser.add_argument('--model_path', type=str, default='../train_model/training_output/train/weights/best.pt',
+                       help='YOLO11 trained model path (default: ../train_model/training_output/train/weights/best.pt)')
     
     # Test mode
     parser.add_argument('--test_mode', action='store_true',

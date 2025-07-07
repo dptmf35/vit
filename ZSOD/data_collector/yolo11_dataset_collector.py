@@ -22,7 +22,7 @@ class YOLO11DatasetCollector(Node):
         self.bridge = CvBridge()
         
         # Initialize YOLO11 model with trained weights
-        model_path = os.getenv('COLLECTOR_MODEL_PATH', 'train_model/training_output/train/weights/best.pt')
+        model_path = os.getenv('COLLECTOR_MODEL_PATH', '../train_model/training_output/train/weights/best.pt')
         self.model = YOLO(model_path)
         
         # Set class names (same as training dataset)
