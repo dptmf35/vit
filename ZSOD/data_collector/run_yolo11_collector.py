@@ -20,8 +20,8 @@ def main():
                        help='Maximum detections per image (default: 50)')
     
     # Dataset parameters
-    parser.add_argument('--dataset_path', type=str, default='~/yolo11_dataset',
-                       help='Dataset save path (default: ~/yolo11_dataset)')
+    parser.add_argument('--dataset_path', type=str, default='~/yolo_dataset',
+                       help='Dataset save path (default: ~/yolo_dataset)')
     parser.add_argument('--image_topic', type=str, default='/stereo_image_color',
                        help='Input image topic (default: /stereo_image_color)')
     

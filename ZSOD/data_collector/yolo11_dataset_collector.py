@@ -110,7 +110,7 @@ class YOLO11DatasetCollector(Node):
     
     def setup_dataset_directories(self):
         """Setup dataset directory structure"""
-        dataset_path = os.getenv('COLLECTOR_DATASET_PATH', '~/yolo11_dataset')
+        dataset_path = os.getenv('COLLECTOR_DATASET_PATH', '~/yolo_dataset')
         self.dataset_root = os.path.expanduser(dataset_path)
         self.images_dir = os.path.join(self.dataset_root, "images")
         self.labels_dir = os.path.join(self.dataset_root, "labels")

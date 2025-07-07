@@ -113,7 +113,7 @@ python3 run_yolo11_collector.py --test_mode
 | `--collection_interval` | 2.0 | 데이터 수집 간격 (초) |
 | `--min_detections` | 1 | 저장하기 위한 최소 detection 수 |
 | `--max_detections` | 50 | 이미지당 최대 detection 수 |
-| `--dataset_path` | ~/yolo11_dataset | 데이터셋 저장 경로 |
+| `--dataset_path` | ~/yolo_dataset | 데이터셋 저장 경로 |
 | `--image_topic` | /stereo_image_color | 입력 이미지 ROS 토픽 |
 | `--model_path` | train_model/training_output/train/weights/best.pt | 학습된 YOLO11 모델 경로 |
 | `--test_mode` | False | 테스트 모드 (데이터 수집 안함) |
@@ -140,7 +140,7 @@ python3 run_yolo11_collector.py --test_mode
 
 ### YOLO11 데이터셋
 ```
-~/yolo11_dataset/
+~/yolo_dataset/
 ├── images/                    # 이미지 파일들
 ├── labels/                    # YOLO 어노테이션 파일들
 ├── visualizations/            # 시각화 이미지들
