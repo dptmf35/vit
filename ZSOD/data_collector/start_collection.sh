@@ -19,9 +19,11 @@ echo "4) Test Mode (detection only, no data collection)"
 echo "5) Interactive Mode (switchable test/collection)"
 echo "6) Custom Settings"
 echo "7) Show current ROS2 image topics"
+echo "8) YOLO11 Trained Model Collection (conf: 0.5, interval: 2s)"
+echo "9) YOLO11 Test Mode (detection only)"
 echo
 
-read -p "Enter choice [1-7]: " choice
+read -p "Enter choice [1-9]: " choice
 
 case $choice in
     1)
@@ -93,6 +95,20 @@ case $choice in
         ros2 topic list | grep -E "(image|cam)" || echo "No image topics found"
         echo
         echo "Re-run this script to start collection."
+        ;;
+    8)
+        echo "Starting YOLO11 Trained Model Collection..."
+        python3 run_yolo11_collector.py \
+            --conf_threshold 0.5 \
+            --collection_interval 2.0 \
+            --min_detections 1
+        ;;
+    9)
+        echo "Starting YOLO11 Test Mode (detection only, no data collection)..."
+        python3 run_yolo11_collector.py \
+            --conf_threshold 0.5 \
+            --collection_interval 2.0 \
+            --test_mode
         ;;
     *)
         echo "Invalid choice. Starting with default settings..."

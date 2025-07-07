@@ -1,25 +1,25 @@
 names:
+- air purifier
 - bed
 - cabinet
 - carpet
 - chair
 - closet
 - countertop
-- curtain
 - desk
+- dinningtable
 - door
 - fridge
-- gas stove
-- hanger
-- kitchen cart
 - lamp
-- nightstand
+- mirror
+- piano
 - plant
 - shelf
+- sidetable
 - sofa
 - table
 - tv
-- window
+- tv stand
 - vanity
 nc: 22
 train: /home/yeseul/Desktop/mygitrepos/vit/ZSOD/train_model/training_output/train/images
