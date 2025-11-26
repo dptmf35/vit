@@ -33,22 +33,24 @@ class YOLOTrainer:
         print(f"Images: {len(self.image_files)}")
         
     def load_class_info(self):
-        """Load class information from dataset.yaml or use defaults"""
+        """Load class information strictly from dataset.yaml (no fallback)."""
         yaml_path = self.dataset_path / "dataset.yaml"
-        
-        if yaml_path.exists():
-            with open(yaml_path, 'r') as f:
-                data = yaml.safe_load(f)
-                if 'names' in data:
-                    class_names = data['names']
-                    if isinstance(class_names, list):
-                        return class_names, len(class_names)
-        
-        # Default classes
-        class_names = ["bed", "cabinet", "carpet", "chair", "closet", "curtain", "desk", "door", "fridge",
-                      "gas stove", "hanger", "lamp", "microwave", "nightstand", "plant", "shelf", "sofa", 
-                      "table", "tv", "window", "vanity"]
-        
+        if not yaml_path.exists():
+            raise ValueError(f"dataset.yaml not found at {yaml_path}. Please provide a valid dataset.yaml with 'names'.")
+        with open(yaml_path, 'r') as f:
+            data = yaml.safe_load(f)
+        if 'names' not in data:
+            raise ValueError(f"'names' not found in {yaml_path}. Please define class names list.")
+        class_names = data['names']
+        if isinstance(class_names, dict):
+            class_names = [class_names[i] for i in sorted(class_names)]
+        if isinstance(class_names, str):
+            try:
+                class_names = eval(class_names)
+            except Exception:
+                pass
+        if not isinstance(class_names, list):
+            raise ValueError(f"Invalid 'names' format in {yaml_path}. Expected list, got {type(class_names)}")
         return class_names, len(class_names)
     
     def get_image_files(self):
@@ -90,11 +92,18 @@ class YOLOTrainer:
     def create_yolo_dataset(self, train_imgs, val_imgs):
         """Create YOLO format dataset structure"""
         
-        # Create directories
+        # Create directories (clean previous contents to avoid stale labels)
         train_images_dir = self.output_dir / "train" / "images"
         train_labels_dir = self.output_dir / "train" / "labels"
         val_images_dir = self.output_dir / "val" / "images"
         val_labels_dir = self.output_dir / "val" / "labels"
+
+        # Remove previous split to prevent mixing old labels/images
+        split_root_train = self.output_dir / "train"
+        split_root_val = self.output_dir / "val"
+        for d in [split_root_train, split_root_val]:
+            if d.exists():
+                shutil.rmtree(d)
         
         for dir_path in [train_images_dir, train_labels_dir, val_images_dir, val_labels_dir]:
             dir_path.mkdir(parents=True, exist_ok=True)

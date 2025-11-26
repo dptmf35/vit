@@ -25,10 +25,19 @@ class YOLO11DatasetCollector(Node):
         model_path = os.getenv('COLLECTOR_MODEL_PATH', '../train_model/training_output/train/weights/best.pt')
         self.model = YOLO(model_path)
         
-        # Set class names (same as training dataset)
-        self.class_names = ["air purifier", "bed", "cabinet", "carpet", "chair", "closet", "countertop", "desk", "dinningtable", "door", "fridge",
-                           "lamp", "mirror", "piano", "plant", "shelf", "sidetable", "sofa", "table", 
-                           "tv", "tv stand", "vanity"]
+        # Set class names from trained model to match dataset.yaml
+        try:
+            model_names = getattr(self.model, 'names', None)
+            if isinstance(model_names, dict):
+                # Ultralytics usually stores names as {class_id: name}
+                self.class_names = [model_names[i] for i in sorted(model_names.keys())]
+            elif isinstance(model_names, list):
+                self.class_names = model_names
+            else:
+                # Fallback (should rarely happen)
+                self.class_names = []
+        except Exception:
+            self.class_names = []
         
         # Detection parameters - trained model에 최적화된 threshold 설정
         self.conf_threshold = float(os.getenv('COLLECTOR_CONF_THRESHOLD', 0.5))
@@ -343,6 +352,15 @@ names: {self.class_names}
                 # Generate annotated image
                 annotated_image = results[0].plot()
                 
+                # In test mode, show prediction result using OpenCV window
+                if self.test_mode:
+                    try:
+                        cv2.imshow("YOLO11 Test Mode - Predictions", annotated_image)
+                        # Non-blocking refresh
+                        cv2.waitKey(1)
+                    except Exception as e:
+                        self.get_logger().error(f"Failed to display OpenCV window: {str(e)}")
+                
                 # Collect data if conditions are met (skip in test mode)
                 if not self.test_mode and detections and self.should_collect_data():
                     success = self.save_dataset_sample(cv_image, detections, annotated_image)
@@ -376,6 +394,14 @@ names: {self.class_names}
                     self.rviz_pub.publish(rviz_msg)
                 except Exception as e:
                     self.get_logger().error(f"Failed to publish rviz image: {str(e)}")
+                
+                # Also show raw image in test mode when there are no detections
+                if self.test_mode:
+                    try:
+                        cv2.imshow("YOLO11 Test Mode - Predictions", cv_image)
+                        cv2.waitKey(1)
+                    except Exception as e:
+                        self.get_logger().error(f"Failed to display OpenCV window: {str(e)}")
                 
         except Exception as e:
             self.get_logger().error(f"Error processing image: {str(e)}")

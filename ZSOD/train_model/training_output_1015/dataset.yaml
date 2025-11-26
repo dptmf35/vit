@@ -1,0 +1,21 @@
+names:
+- airconditioner
+- bed
+- bookshelf
+- cabinet
+- chair
+- clock
+- curtain
+- desk
+- door
+- dresser
+- lamp
+- monitor
+- plant
+- sofa
+- table
+- television
+- window
+nc: 17
+train: /home/yeseul/Desktop/mygitrepos/vit/ZSOD/train_model/training_output_1015/train/images
+val: /home/yeseul/Desktop/mygitrepos/vit/ZSOD/train_model/training_output_1015/val/images

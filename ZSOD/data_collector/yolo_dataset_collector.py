@@ -25,9 +25,10 @@ class YOLODatasetCollector(Node):
         self.model = YOLOE("yoloe-11m-seg.pt")
         
         # Set text prompt to detect objects (sorted alphabetically)
-        self.class_names = ["air purifier", "bed", "cabinet", "carpet", "chair", "closet", "countertop", "desk", "dinningtable", "door", "fridge",
-                           "lamp", "mirror", "piano", "plant", "shelf", "sidetable", "sofa", "table", 
-                           "tv", "tv stand", "vanity"]
+        # self.class_names = ["air purifier", "bed", "cabinet", "carpet", "chair", "closet", "countertop", "desk", "dinningtable", "door", "fridge",
+        #                    "lamp", "mirror", "piano", "plant", "shelf", "sidetable", "sofa", "table", 
+        #                    "tv", "tv stand", "vanity"]
+        self.class_names = ['airconditioner', 'bed', 'bookshelf', 'cabinet', 'chair', 'clock', 'curtain', 'desk', 'door', 'dresser', 'lamp', 'monitor', 'plant', 'sofa', 'table', 'television', 'wallpainting', 'window']
         self.model.set_classes(self.class_names, self.model.get_text_pe(self.class_names))
         
         # Detection parameters - 더 높은 threshold 설정으로 고품질 데이터 수집

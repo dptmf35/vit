@@ -98,17 +98,53 @@ case $choice in
         ;;
     8)
         echo "Starting YOLO11 Trained Model Collection..."
-        python3 run_yolo11_collector.py \
-            --conf_threshold 0.5 \
-            --collection_interval 2.0 \
-            --min_detections 1
+        read -p "Model path (Enter to use default: ../train_model/training_output/train/weights/best.pt): " model_path
+        read -p "Dataset path (Enter to use default: ~/yolo_dataset): " dataset_path
+        if [ -n "$model_path" ]; then
+            if [ -n "$dataset_path" ]; then
+                python3 run_yolo11_collector.py \
+                    --conf_threshold 0.5 \
+                    --collection_interval 2.0 \
+                    --min_detections 1 \
+                    --model_path "$model_path" \
+                    --dataset_path "$dataset_path"
+            else
+                python3 run_yolo11_collector.py \
+                    --conf_threshold 0.5 \
+                    --collection_interval 2.0 \
+                    --min_detections 1 \
+                    --model_path "$model_path"
+            fi
+        else
+            if [ -n "$dataset_path" ]; then
+                python3 run_yolo11_collector.py \
+                    --conf_threshold 0.5 \
+                    --collection_interval 2.0 \
+                    --min_detections 1 \
+                    --dataset_path "$dataset_path"
+            else
+                python3 run_yolo11_collector.py \
+                    --conf_threshold 0.5 \
+                    --collection_interval 2.0 \
+                    --min_detections 1
+            fi
+        fi
         ;;
     9)
         echo "Starting YOLO11 Test Mode (detection only, no data collection)..."
-        python3 run_yolo11_collector.py \
-            --conf_threshold 0.5 \
-            --collection_interval 2.0 \
-            --test_mode
+        read -p "Model path (Enter to use default: ../train_model/training_output/train/weights/best.pt): " model_path
+        if [ -n "$model_path" ]; then
+            python3 run_yolo11_collector.py \
+                --conf_threshold 0.5 \
+                --collection_interval 2.0 \
+                --test_mode \
+                --model_path "$model_path"
+        else
+            python3 run_yolo11_collector.py \
+                --conf_threshold 0.5 \
+                --collection_interval 2.0 \
+                --test_mode
+        fi
         ;;
     *)
         echo "Invalid choice. Starting with default settings..."
