@@ -44,12 +44,21 @@ class DatasetReviewer:
                 content = f.read()
                 # Parse names list from yaml
                 import re
+                # Try to match list format [a, b, c]
                 names_match = re.search(r'names:\s*\[(.*?)\]', content, re.DOTALL)
                 if names_match:
                     names_str = names_match.group(1)
                     # Extract class names
                     names = re.findall(r"'([^']*)'|\"([^\"]*)\"", names_str)
                     class_names = [name[0] or name[1] for name in names]
+                else:
+                    # Try to match list format with hyphens
+                    # names:
+                    # - class1
+                    # - class2
+                    names_match = re.findall(r'^\s*-\s*(.+)$', content, re.MULTILINE)
+                    if names_match:
+                         class_names = [name.strip() for name in names_match if name.strip()]
         
         if not class_names:
             # Default class names
